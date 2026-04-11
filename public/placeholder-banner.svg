@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#1B0E0A"/>
+  <rect width="1600" height="900" fill="url(#g)" fill-opacity="0.92"/>
+  <circle cx="1200" cy="260" r="220" fill="#7B482E" fill-opacity="0.25"/>
+  <circle cx="340" cy="720" r="260" fill="#C2815A" fill-opacity="0.16"/>
+  <text x="140" y="360" fill="#F8EEE6" font-size="92" font-family="Georgia, serif">Heart of Chocolate</text>
+  <text x="144" y="460" fill="#D3A170" font-size="34" font-family="Arial, sans-serif" letter-spacing="8">WEBSITE BANNER</text>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#140B08"/>
+      <stop offset="1" stop-color="#2A140E"/>
+    </linearGradient>
+  </defs>
+</svg>

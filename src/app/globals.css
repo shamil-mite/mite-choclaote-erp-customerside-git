@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+}
+
+:root {
+  color-scheme: light;
+  --font-body: "Montserrat", "Segoe UI", Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --site-rose: #c9a9a6;
+  --site-rose-dark: #8b6f6b;
+  --site-rose-light: #e8d5d3;
+  --site-cream: #f5f0ef;
+  --site-gold: #d4af37;
+  --site-ink: #4a4a4a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+  color: var(--site-ink);
+  background: var(--site-cream);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
+}
+
+::selection {
+  background: rgba(201, 169, 166, 0.35);
+  color: #2f241f;
+}
+
+a,
+button {
+  transition: all 0.25s ease;
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #f5f0ef;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #c9a9a6;
+  border-radius: 999px;
+}
