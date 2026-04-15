@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/lib/seo';
 import { CategoryPage as CategoryPageView } from '@/components/category/category-page';
-import { getCategoryBySlug, getProductsByCategory } from '@/lib/storefront-api';
+import { getCategoryBySlug, getProductsByCategory, normalizeMediaUrl } from '@/lib/storefront-api';
 import type { CategoryPageData } from '@/lib/category-page.types';
 
 type CategoryPageProps = {
@@ -41,13 +41,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       title: category.name,
       slug: category.slug,
       description: category.heroDescription || category.description,
-      imageUrl: category.heroImage || category.thumbImage || '/placeholder-category.svg',
+      imageUrl: normalizeMediaUrl(category.heroImage || category.thumbImage) || '/placeholder-category.svg',
     },
     products: products.map((product) => ({
       id: product.id || product.slug,
       name: product.name,
       slug: product.slug,
-      imageUrl: product.heroImage || product.gallery?.[0] || '/placeholder-product.svg',
+      imageUrl: normalizeMediaUrl(product.heroImage || product.gallery?.[0]) || '/placeholder-product.svg',
       price: Number(product.price || 0),
       shortDescription: product.shortDescription || '',
       currency: 'AED',

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { CartPage } from '@/components/cart/cart-page';
-import { getProducts } from '@/lib/storefront-api';
+import { getProducts, normalizeMediaUrl } from '@/lib/storefront-api';
 import type { CartSuggestedProduct } from '@/lib/cart-page.types';
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default async function Page() {
     id: product.id ?? product.slug,
     name: product.name,
     slug: product.slug,
-    imageUrl: product.heroImage,
+    imageUrl: normalizeMediaUrl(product.heroImage),
     price: product.price,
     currency: 'AED',
     shortDescription: product.shortDescription,

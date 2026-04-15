@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ProductPageView } from '@/components/product/product-page';
 import { buildMetadata, productJsonLd } from '@/lib/seo';
-import { getCategoryBySlug, getProductBySlug, getProductsByCategory } from '@/lib/storefront-api';
+import { getCategoryBySlug, getProductBySlug, getProductsByCategory, normalizeMediaUrl } from '@/lib/storefront-api';
 import type { ProductPageData } from '@/lib/product-page.types';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       slug: product.slug,
       name: product.name,
       code: product.code,
-      imageUrl: product.heroImage,
+      imageUrl: normalizeMediaUrl(product.heroImage),
       shortDescription: product.shortDescription,
       longDescription: product.description,
       price: product.price,
@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       category: {
         name: category?.name || product.categoryName || 'Collection',
         slug: category?.slug || product.categorySlug,
-        bannerImageUrl: category?.heroImage || category?.thumbImage || product.heroImage,
+        bannerImageUrl: normalizeMediaUrl(category?.heroImage || category?.thumbImage || product?.heroImage),
       },
     },
     relatedProducts: categoryProducts
@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         id: entry.id ?? entry.slug,
         name: entry.name,
         slug: entry.slug,
-        imageUrl: entry.heroImage,
+        imageUrl: normalizeMediaUrl(entry.heroImage),
         price: entry.price,
         shortDescription: entry.shortDescription,
         currency: 'AED',
