@@ -23,13 +23,17 @@ export function HomePage({ data }: HomePageProps) {
               subtitle="Explore premium collections crafted for gifting, sharing, and indulgent everyday moments."
             />
 
-            <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-12 flex flex-wrap justify-center gap-6">
               {data.categories.map((category, index) => (
-                <CategoryCard
+                <div
                   key={String(category.id)}
-                  category={category}
-                  index={index}
-                />
+                  className="w-full max-w-[320px] md:max-w-[360px] xl:w-[calc(25%-18px)] xl:max-w-[290px]"
+                >
+                  <CategoryCard
+                    category={category}
+                    index={index}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -43,13 +47,17 @@ export function HomePage({ data }: HomePageProps) {
               subtitle="A refined selection of artisan chocolates, elegantly presented and ordered exactly as you manage them in ERP."
             />
 
-            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-12 flex flex-wrap justify-center gap-6">
               {data.products.map((product, index) => (
-                <ProductCard
+                <div
                   key={String(product.id)}
-                  product={product}
-                  index={index}
-                />
+                  className="w-full max-w-[320px] md:max-w-[360px] xl:w-[calc(25%-18px)] xl:max-w-[290px]"
+                >
+                  <ProductCard
+                    product={product}
+                    index={index}
+                  />
+                </div>
               ))}
             </div>
           </div>

@@ -30,7 +30,7 @@ async function fetchJson<T>(path: string, fallback: T, options: FetchOptions = {
         Accept: 'application/json',
         ...(headers || {}),
       },
-      next: { revalidate },
+      ...(revalidate === 0 ? { cache: 'no-store' as const } : { next: { revalidate } }),
     });
     if (!response.ok) {
       return fallback;
@@ -50,13 +50,13 @@ function unwrapListPayload<T>(payload: T[] | { results?: T[] } | unknown, fallba
 }
 
 export async function getCategories(): Promise<Category[]> {
-  const payload = await fetchJson<Category[] | { results?: Category[] }>('/categories/', fallbackCategories);
+  const payload = await fetchJson<Category[] | { results?: Category[] }>('/categories/', fallbackCategories, { revalidate: 0 });
   return unwrapListPayload(payload, fallbackCategories);
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category | undefined> {
   const fallback = getFallbackCategoryBySlug(slug);
-  return fetchJson<Category | undefined>(`/categories/${slug}/`, fallback);
+  return fetchJson<Category | undefined>(`/categories/${slug}/`, fallback, { revalidate: 0 });
 }
 
 type ProductQueryParams = {
@@ -77,7 +77,7 @@ export async function getProducts(params: ProductQueryParams = {}): Promise<Prod
   if (params.inventory) queryParams.set('inventory', params.inventory);
   if (params.sort) queryParams.set('sort', params.sort);
   const query = queryParams.toString() ? `?${queryParams.toString()}` : '';
-  const payload = await fetchJson<Product[] | { results?: Product[] }>(`/products/${query}`, fallbackProducts);
+  const payload = await fetchJson<Product[] | { results?: Product[] }>(`/products/${query}`, fallbackProducts, { revalidate: 0 });
   return unwrapListPayload(payload, fallbackProducts).sort(
     (a, b) => Number(a.listingOrder ?? 9999) - Number(b.listingOrder ?? 9999) || a.name.localeCompare(b.name),
   );
@@ -85,33 +85,33 @@ export async function getProducts(params: ProductQueryParams = {}): Promise<Prod
 
 export async function getProductsByCategory(slug: string): Promise<Product[]> {
   const fallback = getFallbackProductsByCategory(slug);
-  const payload = await fetchJson<Product[] | { results?: Product[] }>(`/products/?category=${encodeURIComponent(slug)}`, fallback);
+  const payload = await fetchJson<Product[] | { results?: Product[] }>(`/products/?category=${encodeURIComponent(slug)}`, fallback, { revalidate: 0 });
   return unwrapListPayload(payload, fallback);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
   const fallback = getFallbackProductBySlug(slug);
-  return fetchJson<Product | undefined>(`/products/${slug}/`, fallback);
+  return fetchJson<Product | undefined>(`/products/${slug}/`, fallback, { revalidate: 0 });
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  const payload = await fetchJson<BlogPost[] | { results?: BlogPost[] }>('/blog-posts/', fallbackBlogPosts);
+  const payload = await fetchJson<BlogPost[] | { results?: BlogPost[] }>('/blog-posts/', fallbackBlogPosts, { revalidate: 0 });
   return unwrapListPayload(payload, fallbackBlogPosts);
 }
 
 export async function getBanners(): Promise<WebsiteBanner[]> {
-  const payload = await fetchJson<WebsiteBanner[] | { results?: WebsiteBanner[] }>('/banners/', fallbackBanners);
+  const payload = await fetchJson<WebsiteBanner[] | { results?: WebsiteBanner[] }>('/banners/', fallbackBanners, { revalidate: 0 });
   return unwrapListPayload(payload, fallbackBanners);
 }
 
 export async function getWebsitePage(pageKey: string): Promise<WebsitePage | undefined> {
   const fallback = getFallbackPage(pageKey);
-  return fetchJson<WebsitePage | undefined>(`/pages/${encodeURIComponent(pageKey)}/`, fallback);
+  return fetchJson<WebsitePage | undefined>(`/pages/${encodeURIComponent(pageKey)}/`, fallback, { revalidate: 0 });
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
   const fallback = getFallbackBlogPostBySlug(slug);
-  return fetchJson<BlogPost | undefined>(`/blog-posts/${slug}/`, fallback);
+  return fetchJson<BlogPost | undefined>(`/blog-posts/${slug}/`, fallback, { revalidate: 0 });
 }
 
 export type StorefrontAuthBundle = {

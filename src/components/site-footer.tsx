@@ -6,9 +6,9 @@ import { siteConfig } from '@/data/catalog';
 
 export function SiteFooter() {
   const pathname = usePathname();
-  const isHome = pathname === '/';
+  const isDarkStorefrontRoute = pathname === '/' || pathname.startsWith('/category/');
 
-  if (isHome) {
+  if (isDarkStorefrontRoute) {
     return (
       <footer className="border-t border-[#3b2318] bg-[linear-gradient(180deg,#170b08_0%,#110705_100%)]">
         <div className="mx-auto grid w-full max-w-[1400px] gap-10 px-6 py-16 text-sm text-[#d8c4b3] lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:px-10">

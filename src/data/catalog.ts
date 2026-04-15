@@ -27,6 +27,8 @@ export type Product = {
   inventoryStatus: 'in_stock' | 'limited' | 'sold_out';
   heroImage: string;
   gallery: string[];
+  productWeight?: number | null;
+  weightUnit?: string;
   seoTitle: string;
   seoDescription: string;
   highlights: string[];

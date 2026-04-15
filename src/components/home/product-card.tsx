@@ -2,8 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSyncExternalStore } from 'react';
 import { motion } from 'framer-motion';
+import { Minus, Plus } from 'lucide-react';
 import type { HomeProduct } from '@/lib/homepage.types';
+import { useCart } from '@/components/providers/cart-provider';
 
 type ProductCardProps = {
   product: HomeProduct;
@@ -19,6 +22,21 @@ function formatPrice(value: number, currency = 'AED') {
 }
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
+  const { items, addItem, updateQuantity } = useCart();
+  const hydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+  const cartItem = hydrated ? items.find((item) => item.slug === product.slug) : undefined;
+  const quantity = cartItem?.quantity || 0;
+  const normalizedProductId =
+    typeof product.id === 'number'
+      ? product.id
+      : Number.isFinite(Number(product.id))
+        ? Number(product.id)
+        : undefined;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -60,12 +78,55 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             {formatPrice(product.price, product.currency)}
           </p>
 
-          <Link
-            href={`/product/${product.slug}`}
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#d1a37d]/20 bg-gradient-to-r from-[#8e5434] to-[#c2815a] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition duration-300 hover:-translate-y-0.5"
-          >
-            Buy
-          </Link>
+          {quantity > 0 ? (
+            <div className="inline-flex min-h-11 items-center rounded-full border border-[#d1a37d]/25 bg-[rgba(31,14,10,0.88)] px-2 shadow-[0_10px_25px_rgba(0,0,0,0.25)]">
+              <div className="inline-flex items-center rounded-full border border-[#d1a37d]/25 bg-[rgba(50,21,14,0.9)] px-1">
+                <button
+                  type="button"
+                  aria-label={`Decrease ${product.name} quantity`}
+                  onClick={() => updateQuantity(product.slug, quantity - 1)}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#f3d0a8] transition hover:bg-[rgba(210,161,121,0.12)] hover:text-white"
+                >
+                  <Minus size={15} />
+                </button>
+                <span className="min-w-8 text-center text-sm font-semibold text-[#f8ece2]">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  aria-label={`Increase ${product.name} quantity`}
+                  onClick={() =>
+                    addItem({
+                      productId: normalizedProductId,
+                      slug: product.slug,
+                      name: product.name,
+                      price: product.price,
+                      image: product.imageUrl,
+                    })
+                  }
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#f3d0a8] transition hover:bg-[rgba(210,161,121,0.12)] hover:text-white"
+                >
+                  <Plus size={15} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() =>
+                addItem({
+                  productId: normalizedProductId,
+                  slug: product.slug,
+                  name: product.name,
+                  price: product.price,
+                  image: product.imageUrl,
+                })
+              }
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#d1a37d]/20 bg-gradient-to-r from-[#8e5434] to-[#c2815a] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition duration-300 hover:-translate-y-0.5"
+            >
+              Buy
+            </button>
+          )}
         </div>
       </div>
     </motion.article>

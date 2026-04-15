@@ -86,7 +86,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     updateQuantity: (slug, quantity) => {
       setItems((current) =>
         current
-          .map((entry) => (entry.slug === slug ? { ...entry, quantity: Math.max(1, quantity) } : entry))
+          .map((entry) => (entry.slug === slug ? { ...entry, quantity: Math.max(0, quantity) } : entry))
           .filter((entry) => entry.quantity > 0)
       );
     },
