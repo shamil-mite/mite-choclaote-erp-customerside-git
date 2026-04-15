@@ -17,7 +17,7 @@ pipelines:
             - git fetch --unshallow || true
             
             # Add GitHub as remote using token from repository variable
-            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git
+            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git
             
             # Amend the last commit to change the author to GitHub identity
             - git commit --amend --author="shamil-mite <shamil@mitetechnology.com>" --no-edit || true
@@ -42,7 +42,7 @@ pipelines:
             - git fetch --unshallow || true
             
             # Add GitHub as remote using token from repository variable
-            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git
+            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git
             
             # Amend the last commit to change the author to GitHub identity
             - git commit --amend --author="shamil-mite <shamil@mitetechnology.com>" --no-edit || true
@@ -67,7 +67,7 @@ pipelines:
             - git fetch --unshallow || true
             
             # Add GitHub as remote using token from repository variable
-            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git
+            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git
             
             # Amend the last commit to change the author to GitHub identity
             - git commit --amend --author="shamil-mite <shamil@mitetechnology.com>" --no-edit || true
@@ -92,7 +92,7 @@ pipelines:
             - git fetch --unshallow || true
             
             # Add GitHub as remote using token from repository variable
-            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git
+            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git
             
             # Amend the last commit to change the author to GitHub identity
             - git commit --amend --author="shamil-mite <shamil@mitetechnology.com>" --no-edit || true
@@ -117,7 +117,7 @@ pipelines:
             - git fetch --unshallow || true
             
             # Add GitHub as remote using token from repository variable
-            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-marketing-agent-web-git.git
+            - git remote add github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git || git remote set-url github https://${GITHUB_TOKEN}@github.com/shamil-mite/mite-choclaote-erp-customerside-git.git
             
             # Amend the last commit to change the author to GitHub identity
             - git commit --amend --author="shamil-mite <shamil@mitetechnology.com>" --no-edit || true
