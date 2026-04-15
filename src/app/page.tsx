@@ -1,6 +1,6 @@
 import { buildMetadata } from '@/lib/seo';
 import { HomePage } from '@/components/home/home-page';
-import { getBanners, getCategories, getProducts } from '@/lib/storefront-api';
+import { getBanners, getCategories, getProducts, normalizeMediaUrl } from '@/lib/storefront-api';
 import { siteConfig } from '@/data/catalog';
 import type { HomePageData } from '@/lib/homepage.types';
 
@@ -24,8 +24,8 @@ async function getHomePageData(): Promise<HomePageData> {
       title: banner.title,
       subtitle: banner.subtitle || null,
       description: banner.description || null,
-      imageUrl: banner.imageUrl || banner.mobileImageUrl || '/placeholder-banner.svg',
-      thumbnailUrl: banner.mobileImageUrl || banner.imageUrl || '/placeholder-banner.svg',
+      imageUrl: normalizeMediaUrl(banner.imageUrl || banner.mobileImageUrl) || '/placeholder-banner.svg',
+      thumbnailUrl: normalizeMediaUrl(banner.mobileImageUrl || banner.imageUrl) || '/placeholder-banner.svg',
       ctaLabel: banner.buttonText || 'Buy',
       ctaHref: banner.buttonUrl || '/catalog',
       sortOrder: index,
@@ -34,14 +34,14 @@ async function getHomePageData(): Promise<HomePageData> {
       id: index + 1,
       name: category.name,
       slug: category.slug,
-      imageUrl: category.thumbImage || category.heroImage || '/placeholder-category.svg',
+      imageUrl: normalizeMediaUrl(category.thumbImage || category.heroImage) || '/placeholder-category.svg',
       shortDescription: category.description || null,
     })),
     products: products.map((product, index) => ({
       id: product.id || index + 1,
       name: product.name,
       slug: product.slug,
-      imageUrl: product.heroImage || product.gallery?.[0] || '/placeholder-product.svg',
+      imageUrl: normalizeMediaUrl(product.heroImage || product.gallery?.[0]) || '/placeholder-product.svg',
       price: Number(product.price || 0),
       shortDescription: product.shortDescription || null,
       currency: 'AED',

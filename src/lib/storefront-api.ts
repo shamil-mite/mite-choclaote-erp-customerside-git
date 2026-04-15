@@ -17,6 +17,30 @@ import {
 
 const API_BASE_URL = (process.env.NEXT_PUBLIC_STOREFRONT_API_BASE_URL || 'http://127.0.0.1:8000/api/storefront').replace(/\/$/, '');
 
+// The Django backend builds absolute media URLs using the port it actually listens on
+// (e.g. gunicorn on 8098), which may differ from the port the frontend expects (8000).
+// This normalises any absolute localhost/127.0.0.1 URL so its origin matches API_BASE_URL.
+const API_ORIGIN = (() => {
+  try { return new URL(API_BASE_URL).origin; } catch { return ''; }
+})();
+
+export function normalizeMediaUrl(url: string | null | undefined): string {
+  if (!url) return '';
+  try {
+    const parsed = new URL(url);
+    if (
+      API_ORIGIN &&
+      (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') &&
+      parsed.origin !== API_ORIGIN
+    ) {
+      return `${API_ORIGIN}${parsed.pathname}${parsed.search}${parsed.hash}`;
+    }
+  } catch {
+    // relative URL — return as-is
+  }
+  return url;
+}
+
 type FetchOptions = RequestInit & {
   revalidate?: number;
 };
