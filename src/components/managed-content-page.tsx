@@ -1,4 +1,5 @@
 import type { WebsitePage } from '@/data/catalog';
+import { normalizeMediaUrl } from '@/lib/storefront-api';
 
 export function ManagedContentPage({
   page,
@@ -12,7 +13,7 @@ export function ManagedContentPage({
       <section className="relative overflow-hidden rounded-[38px] border border-[#e0cdca] bg-[linear-gradient(140deg,#f8f1ef_0%,#eedddb_65%,#ead8d4_100%)] shadow-[0_26px_80px_rgba(201,169,166,0.18)]">
         {page.bannerImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={page.bannerImage} alt={page.title} className="absolute inset-0 h-full w-full object-cover opacity-35" />
+          <img src={normalizeMediaUrl(page.bannerImage)} alt={page.title} className="absolute inset-0 h-full w-full object-cover opacity-35" />
         ) : null}
         <div className="relative min-h-[50vh] bg-[linear-gradient(90deg,rgba(248,241,239,0.92),rgba(248,241,239,0.55))] px-8 py-14 lg:px-14 lg:py-20">
           {page.subtitle ? (

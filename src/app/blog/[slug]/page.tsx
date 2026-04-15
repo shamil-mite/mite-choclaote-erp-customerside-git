@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { blogPostingJsonLd, buildMetadata } from '@/lib/seo';
-import { getBlogPostBySlug } from '@/lib/storefront-api';
+import { getBlogPostBySlug, normalizeMediaUrl } from '@/lib/storefront-api';
 
 type BlogDetailProps = {
   params: Promise<{ slug: string }>;
@@ -33,7 +33,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
       <section className="relative overflow-hidden rounded-[38px] border border-[#e2cfcb] bg-[linear-gradient(140deg,#faf5f3_0%,#f1e4e1_100%)] shadow-[0_24px_70px_rgba(201,169,166,0.16)]">
         {post.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={post.image} alt={post.title} className="absolute inset-0 h-full w-full object-cover opacity-35" />
+          <img src={normalizeMediaUrl(post.image)} alt={post.title} className="absolute inset-0 h-full w-full object-cover opacity-35" />
         ) : null}
         <div className="relative min-h-[58vh] bg-[linear-gradient(90deg,rgba(248,241,239,0.92),rgba(248,241,239,0.58))] px-8 py-14 lg:px-14 lg:py-20">
           <div className="inline-flex rounded-full bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#8b6f6b]">

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { BlogPost } from '@/data/catalog';
+import { normalizeMediaUrl } from '@/lib/storefront-api';
 
 export function BlogCard({ post }: { post: BlogPost }) {
   return (
@@ -7,7 +8,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
       <div className="h-72 bg-[linear-gradient(135deg,rgba(201,169,166,0.32),rgba(255,249,247,0.95))]">
         {post.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+          <img src={normalizeMediaUrl(post.image)} alt={post.title} className="h-full w-full object-cover" />
         ) : (
           <div className="flex h-full items-end p-8">
             <div>

@@ -1,6 +1,6 @@
 import { buildMetadata } from '@/lib/seo';
 import { BlogCard } from '@/components/blog-card';
-import { getBlogPosts } from '@/lib/storefront-api';
+import { getBlogPosts, normalizeMediaUrl } from '@/lib/storefront-api';
 import { siteConfig } from '@/data/catalog';
 
 export const metadata = buildMetadata({
@@ -19,7 +19,7 @@ export default async function BlogIndexPage() {
       <section className="relative overflow-hidden rounded-[38px] border border-[#e2cfcb] bg-[linear-gradient(140deg,#faf5f3_0%,#f1e4e1_100%)] shadow-[0_24px_70px_rgba(201,169,166,0.16)]">
         {featuredPost?.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={featuredPost.image} alt={featuredPost.title} className="absolute inset-0 h-full w-full object-cover opacity-30" />
+          <img src={normalizeMediaUrl(featuredPost.image)} alt={featuredPost.title} className="absolute inset-0 h-full w-full object-cover opacity-30" />
         ) : null}
         <div className="relative min-h-[58vh] bg-[linear-gradient(90deg,rgba(248,241,239,0.95),rgba(248,241,239,0.62))] p-8 lg:p-14">
           <div className="inline-flex rounded-full bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#8b6f6b]">
